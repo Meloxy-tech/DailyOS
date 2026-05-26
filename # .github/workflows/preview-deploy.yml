@@ -1,0 +1,23 @@
+# .github/workflows/preview-deploy.yml
+name: Deploy Preview
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  deploy-preview:
+    name: Deploy to Vercel Preview
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Deploy Preview
+        uses: vercel/action@v5
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
